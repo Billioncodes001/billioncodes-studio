@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta
       name="description"
-      content="Billioncodes Studio independent interactive portfolio demo."
+      content="A private freelancer proposal desk with your own scope, rates and versioned estimates."
     />
-    <title>Billioncodes Studio | Independent demo</title>
+    <title>Billioncodes Studio | The proposal desk</title>
     <link rel="stylesheet" href="/base.css" />
     <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/desk.css" />
     <script type="module" src="/app.js"></script>
   </head>
   <body>
@@ -99,7 +100,7 @@
         </div>
         <p class="caption">
           These are original visual explorations, not commissioned client work.
-          The working estimator is below.
+          The working proposal desk is below.
         </p>
       </section>
       <section id="studio" class="studio">
@@ -119,40 +120,270 @@
       </section>
       <section id="start" class="start">
         <div>
-          <p class="eyebrow">LET'S GIVE IT A SHAPE</p>
-          <h2>Your idea.<br />Our next<br /><em>conversation.</em></h2>
+          <p class="eyebrow">THE PROPOSAL DESK</p>
+          <h2>Good scope.<br />Clear numbers.<br /><em>Less guesswork.</em></h2>
           <p>
-            Explore a transparent, fictional project estimate. Nothing is
-            submitted to a sales team.
+            Your work has a shape. Give it a price you can explain. Build line
+            by line, make the assumptions visible and keep every revision.
           </p>
         </div>
-        <form id="estimate-form">
+        <div id="access">
+          <h3>A private space<br />for the business of making.</h3>
+          <p id="access-message">Checking workspace access...</p>
+          <form id="login-form" hidden>
+            <label
+              >Workspace password<input
+                type="password"
+                name="password"
+                autocomplete="current-password"
+                required
+                maxlength="1024" /></label
+            ><button type="submit">Unlock proposal desk</button>
+          </form>
+          <button id="retry" type="button" hidden>Retry connection</button>
+          <p>
+            One operator. Saved on this machine. Nothing submitted to a sales
+            team or client.
+          </p>
+        </div>
+        <p id="unlocked-message" hidden>
+          The desk is unlocked below. All rates and tax percentages are your own
+          inputs, not suggested market prices or tax advice.
+        </p>
+      </section>
+      <noscript
+        >The private proposal desk needs JavaScript. Saved proposals are never
+        available without authentication.</noscript
+      >
+      <section
+        id="desk"
+        class="proposal-desk"
+        hidden
+        aria-labelledby="desk-title"
+      >
+        <div class="desk-heading">
+          <div>
+            <p class="eyebrow">BILLIONCODES / WORKING PAPERS</p>
+            <h2 id="desk-title">Your next <em>proposal.</em></h2>
+          </div>
+          <button id="lock" type="button">Lock desk</button>
+        </div>
+        <div class="shelf-toolbar">
           <label
-            >What shall we call it?<input
-              name="name"
-              required
-              maxlength="80"
-              placeholder="Your project name" /></label
+            >Find a proposal<input
+              id="search"
+              type="search"
+              placeholder="Project or client reference" /></label
           ><label
-            >The kind of thing<select name="kind">
-              <option>Website</option>
-              <option>Web application</option>
-              <option>Mobile experience</option>
+            >Show<select id="filter">
+              <option value="active">Active proposals</option>
+              <option value="archived">Archived proposals</option>
+              <option value="all">All proposals</option>
             </select></label
-          ><label
-            >Approximate screens<select name="pages">
-              <option value="5">Up to 5</option>
-              <option value="10">Around 10</option>
-              <option value="20">Around 20</option>
-            </select></label
-          ><label class="check"
-            ><input type="checkbox" name="care" checked /> Include a fictional
-            support package</label
-          ><button type="submit">
-            Calculate &amp; save estimate <span>↗</span>
+          ><button id="new" type="button" class="solid">+ New proposal</button>
+        </div>
+        <div id="proposals" class="proposal-shelf"></div>
+        <details id="legacy-panel" hidden>
+          <summary>Original illustrative estimates / read-only</summary>
+          <p>
+            Preserved from the original demo. These used fictional fixed prices,
+            not rates supplied by you. They have not been converted into
+            commercial proposals.
+          </p>
+          <div id="legacy"></div>
+        </details>
+        <div class="paper-header">
+          <span>01 / THE WORKING COPY</span
+          ><span id="stamp">NOT YET SAVED</span>
+        </div>
+        <div class="document-heading">
+          <h3 id="document-name">The next useful thing.</h3>
+          <p id="draft-state" role="status">
+            Your rates. Your scope. No invented price list.
+          </p>
+        </div>
+        <div id="conflict" hidden>
+          <p>
+            Your editor has not been replaced. Review the newer saved revision
+            before deciding what to keep.
+          </p>
+          <button id="review" type="button">Review latest saved proposal</button
+          ><button id="replace" type="button">
+            Replace editor with latest saved
           </button>
-          <div id="estimates"></div>
+        </div>
+        <form id="proposal-form">
+          <div class="working-paper">
+            <fieldset id="paper-fields">
+              <legend class="sr-only">Proposal details and scope lines</legend>
+              <label class="project-label"
+                >What shall we call it?<input
+                  name="name"
+                  required
+                  maxlength="80"
+                  placeholder="Project name"
+              /></label>
+              <div class="two-columns">
+                <label
+                  >Prepared for<input
+                    name="client"
+                    maxlength="160"
+                    placeholder="Client or organisation reference" /></label
+                ><label
+                  >Prepared by<input
+                    name="author"
+                    maxlength="120"
+                    placeholder="Your name or studio"
+                /></label>
+              </div>
+              <label
+                >Project objective<textarea
+                  name="summary"
+                  required
+                  maxlength="1500"
+                  placeholder="The problem this work solves and the outcome it should create"
+                ></textarea>
+              </label>
+              <div class="section-rule">
+                <h4>Scope, in plain sight.</h4>
+                <span>02 / LINE ITEMS</span>
+              </div>
+              <p class="help">
+                Enter a quantity and your rate for each line. Free work can have
+                a zero rate; blank rates are never treated as zero.
+              </p>
+              <div id="lines"></div>
+              <button id="add-line" type="button" class="outline">
+                + Add scope line
+              </button>
+              <div class="section-rule">
+                <h4>The small print. <em>Made visible.</em></h4>
+                <span>03 / BOUNDARIES</span>
+              </div>
+              <label
+                >Assumptions<textarea
+                  name="assumptions"
+                  maxlength="2000"
+                  placeholder="What needs to be true for this scope and price to hold?"
+                ></textarea>
+              </label>
+              <label
+                >Not included<textarea
+                  name="exclusions"
+                  maxlength="1500"
+                  placeholder="Deliberate exclusions, third-party costs or later phases"
+                ></textarea>
+              </label>
+              <label
+                >Delivery and payment notes<textarea
+                  name="terms"
+                  maxlength="2000"
+                  placeholder="Your proposed milestones, review windows or payment schedule. No payment is collected."
+                ></textarea>
+              </label>
+            </fieldset>
+            <aside class="price-column" aria-labelledby="price-title">
+              <div class="price-sheet">
+                <p class="eyebrow">THE NUMBERS / EDITOR PREVIEW</p>
+                <h4 id="price-title">It all<br /><em>adds up.</em></h4>
+                <label
+                  >Currency<select id="currency" name="currency">
+                    <option>NGN</option>
+                    <option>USD</option>
+                    <option>GBP</option>
+                    <option>EUR</option>
+                  </select></label
+                >
+                <p class="help">
+                  Locked after the first save. No exchange conversion or
+                  relabelling of saved amounts.
+                </p>
+                <label
+                  >Fixed discount<input
+                    name="discount"
+                    value="0.00"
+                    inputmode="decimal"
+                    required
+                    maxlength="13" /></label
+                ><label
+                  >Tax percentage<input
+                    name="taxRate"
+                    value="0.00"
+                    inputmode="decimal"
+                    required
+                    maxlength="6"
+                /></label>
+                <p class="help">
+                  Operator-entered percentage applied after discount, not a
+                  recommended or verified tax rate.
+                </p>
+                <div id="totals" aria-live="polite"></div>
+                <details class="rounding">
+                  <summary>How the numbers work</summary>
+                  <p>
+                    Each quantity x rate is rounded half up to two decimal
+                    places, then summed. Subtract the fixed discount; apply the
+                    entered tax percentage to the remainder and round half up.
+                    Quantities and amounts accept at most two decimal places.
+                  </p>
+                </details>
+              </div>
+            </aside>
+          </div>
+          <div class="save-paper">
+            <label
+              >Revision note<input
+                name="note"
+                maxlength="300"
+                placeholder="What changed and why?" /></label
+            ><button id="save" type="submit" class="solid">
+              Save proposal revision
+            </button>
+            <p>
+              No autosave. A successful save creates a local revision, not a
+              client submission.
+            </p>
+          </div>
         </form>
+        <section
+          id="history-panel"
+          class="history-panel"
+          hidden
+          aria-labelledby="history-title"
+        >
+          <div class="section-rule">
+            <h4 id="history-title">A record of the <em>decisions.</em></h4>
+            <span>04 / REVISION HISTORY</span>
+          </div>
+          <div class="history-controls">
+            <label>Revision to inspect<select id="revision"></select></label
+            ><button id="archive" type="button" class="outline">
+              Archive proposal</button
+            ><button id="restore" type="button" class="outline">
+              Restore selected as a new draft
+            </button>
+          </div>
+          <p id="revision-note"></p>
+          <details>
+            <summary>Read selected saved proposal</summary>
+            <div id="snapshot"></div>
+          </details>
+          <details>
+            <summary>Compare selected with latest saved</summary>
+            <div id="comparison"></div>
+          </details>
+          <div class="export-links">
+            <a id="export-print" target="_blank" rel="noopener"
+              >Print / save PDF</a
+            ><a id="export-markdown">Download Markdown</a
+            ><a id="export-json">Download JSON</a>
+          </div>
+          <p class="help">
+            Exports include the selected saved revision, not unsaved changes.
+            These are review documents, not signed agreements, invoices or
+            payment requests. No document has been sent.
+          </p>
+        </section>
       </section>
     </main>
     <div id="notice" role="status" aria-live="polite"></div>

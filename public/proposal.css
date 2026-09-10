@@ -1,0 +1,137 @@
+@font-face {
+  font-family: News;
+  src: url("/fonts/news.woff2");
+  font-display: swap;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: auto;
+  padding: 40px;
+  max-width: 960px;
+  background: #f1efe8;
+  color: #262820;
+  font: 16px/1.7 sans-serif;
+  overflow-wrap: anywhere;
+}
+header {
+  border-top: 10px solid #a84329;
+  padding-block: 24px;
+  border-bottom: 1px solid #929586;
+}
+h1 {
+  font:
+    52px/1.1 News,
+    serif;
+}
+header > p:first-child,
+caption {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-align: left;
+}
+aside {
+  background: #e5d2c3;
+  padding: 20px;
+  margin-top: 24px;
+}
+h2 {
+  font:
+    30px News,
+    serif;
+  margin-top: 36px;
+}
+.multiline {
+  white-space: pre-wrap;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  table-layout: fixed;
+}
+th,
+td {
+  padding: 14px 8px;
+  border-bottom: 1px solid #949689;
+  text-align: left;
+  vertical-align: top;
+}
+th:first-child {
+  width: 40%;
+}
+th {
+  font-weight: 600;
+}
+dl {
+  margin-left: auto;
+  max-width: 450px;
+}
+dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  border-bottom: 1px solid #949689;
+  padding: 12px 0;
+}
+dd {
+  margin: 0;
+  text-align: right;
+}
+dl > div:last-child {
+  font-weight: bold;
+  font-size: 22px;
+}
+footer {
+  margin-top: 40px;
+  border-top: 1px solid #949689;
+  padding-top: 16px;
+  font-size: 12px;
+}
+@media (max-width: 600px) {
+  body {
+    padding: 20px;
+  }
+  h1 {
+    font-size: 38px;
+  }
+  table {
+    font-size: 11px;
+  }
+  th,
+  td {
+    padding: 10px 4px;
+  }
+  th:first-child {
+    width: 35%;
+  }
+}
+@media print {
+  body {
+    max-width: none;
+    padding: 0;
+    background: white;
+    color: black;
+    font: 11pt/1.5 sans-serif;
+  }
+  h1 {
+    font-size: 28pt;
+  }
+  h2 {
+    break-after: avoid;
+  }
+  tr {
+    break-inside: avoid;
+  }
+  thead {
+    display: table-header-group;
+  }
+  aside {
+    background: none;
+    border: 1px solid;
+  }
+  @page {
+    margin: 16mm;
+  }
+}

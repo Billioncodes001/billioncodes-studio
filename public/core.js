@@ -1,5 +1,4 @@
 export const $ = (selector) => document.querySelector(selector);
-export const $$ = (selector) => [...document.querySelectorAll(selector)];
 export const escape = (value) =>
   String(value).replace(
     /[&<>"']/g,
@@ -8,74 +7,50 @@ export const escape = (value) =>
         c
       ],
   );
-export const money = (amount, currency = "NGN") =>
-  new Intl.NumberFormat("en-NG", {
-    style: "currency",
-    currency,
-    maximumFractionDigits: 0,
-  }).format(amount);
-let token, draw;
-export let state;
+let csrf;
+export function setToken(value) {
+  csrf = value;
+}
 export function notice(message, error = false) {
   const el = $("#notice");
   el.textContent = message;
   el.dataset.error = String(error);
 }
-export async function init(render) {
-  draw = render;
-  const controls = [
-    ...document.querySelectorAll("button,input,select,textarea"),
-  ];
-  controls.forEach((control) => {
-    control.disabled = true;
-  });
+export async function api(path, payload) {
+  let response;
   try {
-    const response = await fetch("/api/state");
-    if (!response.ok)
-      throw new Error("Cannot load the workspace. Reload to retry.");
-    const data = await response.json();
-    state = data.state;
-    token = data.csrf;
-    render(state);
-    controls.forEach((control) => {
-      control.disabled = false;
-    });
-  } catch (error) {
-    notice(error.message, true);
+    response = await fetch(
+      path,
+      payload === undefined
+        ? { cache: "no-store" }
+        : {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-CSRF-Token": csrf || "",
+            },
+            body: JSON.stringify(payload),
+          },
+    );
+  } catch {
+    throw new Error(
+      "Connection lost. Your draft is still here. Retry the same save safely.",
+    );
   }
-}
-export async function action(payload) {
+  let data;
   try {
-    const response = await fetch("/api/action", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "X-CSRF-Token": token },
-      body: JSON.stringify(payload),
-    });
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.error || "Could not save.");
-    state = data.state;
-    draw(state);
-    notice(data.message);
-    return data;
-  } catch (error) {
-    notice(error.message, true);
-    return null;
+    data = await response.json();
+  } catch {
+    throw new Error(
+      "The server response could not be read. Your draft is still here; retry safely.",
+    );
   }
-}
-export function form(selector, handler) {
-  $(selector).addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const button = event.target.querySelector("[type=submit]");
-    button.disabled = true;
-    try {
-      await handler(
-        Object.fromEntries(new FormData(event.target)),
-        event.target,
-      );
-    } catch (error) {
-      notice(error.message, true);
-    } finally {
-      button.disabled = false;
-    }
-  });
+  if (!response.ok) {
+    const error = new Error(
+      data.error || "The request failed; your draft is kept.",
+    );
+    error.status = response.status;
+    throw error;
+  }
+  return data;
 }
