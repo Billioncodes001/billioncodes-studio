@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Billioncodes Studio independent interactive portfolio demo."
+    />
+    <title>Billioncodes Studio | Independent demo</title>
+    <link rel="stylesheet" href="/base.css" />
+    <link rel="stylesheet" href="/style.css" />
+    <script type="module" src="/app.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="demo-bar">
+      Independent portfolio recreation. Local demo only; not an official
+      service. Use fictional data.
+    </div>
+    <header>
+      <a href="/" class="logo">BILLION<br />CODES</a>
+      <nav aria-label="Main navigation">
+        <a href="#work">Selected work</a><a href="#studio">The studio</a
+        ><a href="#start">Start a project <span>↗</span></a>
+      </nav>
+    </header>
+    <main id="main">
+      <section class="masthead">
+        <div class="edition">
+          <span>INDEPENDENT SOFTWARE STUDIO</span
+          ><span>LAGOS, NIGERIA / WORKING EVERYWHERE</span>
+        </div>
+        <h1>
+          Ideas deserve<br /><span>better</span> software<span class="asterisk"
+            >✳</span
+          >
+        </h1>
+        <div class="masthead-bottom">
+          <p>
+            We turn ambitious ideas into digital things<br />that work
+            beautifully. Less noise. More craft.
+          </p>
+          <a href="#work" class="round-link" aria-label="Explore selected work"
+            >↓</a
+          ><span>DESIGN + ENGINEERING<br />ONE CONTINUOUS CONVERSATION</span>
+        </div>
+      </section>
+      <section id="work" class="work">
+        <div class="section-line">
+          <h2>Selected explorations</h2>
+          <span>01 — 03 / CONCEPT WORK</span>
+        </div>
+        <div class="work-grid">
+          <article class="project atlas">
+            <div class="project-top">
+              <span>01 / OPERATIONS</span><span>↗</span>
+            </div>
+            <div class="atlas-art">
+              <div class="tiny-sidebar">A<br /><i></i><i></i><i></i></div>
+              <div class="tiny-screen">
+                <small>OVERVIEW</small
+                ><strong>Good morning,<br />let's make progress.</strong>
+                <div class="mini-stats">
+                  <b>24<small>IN PROGRESS</small></b
+                  ><b>86%<small>ON TRACK</small></b>
+                </div>
+                <div class="bars">
+                  <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+                </div>
+              </div>
+            </div>
+            <h3>Atlas / less admin.<br />More possibility.</h3>
+            <p>Dashboard interface study / Web application</p>
+          </article>
+          <article class="project folio">
+            <div class="project-top">
+              <span>02 / COMMERCE</span><span>↗</span>
+            </div>
+            <div class="folio-art">
+              <span>the<br /><em>everyday</em><br />collection.</span>
+              <div class="vase"></div>
+              <small>OBJECTS WORTH KEEPING</small>
+            </div>
+            <h3>Objects / a slower<br />kind of shopping.</h3>
+            <p>Editorial storefront study / Digital experience</p>
+          </article>
+          <article class="project mono">
+            <div class="project-top">
+              <span>03 / LEARNING</span><span>↗</span>
+            </div>
+            <div class="mono-art">
+              <span>LEARN<br />BY<br /><b>DOING.</b></span
+              ><i>↗</i><small>ONE SMALL STEP. EVERY DAY.</small>
+            </div>
+            <h3>Next / learning<br />without the overwhelm.</h3>
+            <p>Learning platform study / Product design</p>
+          </article>
+        </div>
+        <p class="caption">
+          These are original visual explorations, not commissioned client work.
+          The working estimator is below.
+        </p>
+      </section>
+      <section id="studio" class="studio">
+        <p class="eyebrow">THE WAY WE WORK</p>
+        <h2>No handoffs into<br />the <em>unknown.</em></h2>
+        <div>
+          <p>
+            Good software is a collaboration, not a disappearing act. Strategy,
+            design and engineering belong at the same table.
+          </p>
+          <ul>
+            <li>01 / Understand the real problem</li>
+            <li>02 / Make something you can test</li>
+            <li>03 / Refine, release, repeat</li>
+          </ul>
+        </div>
+      </section>
+      <section id="start" class="start">
+        <div>
+          <p class="eyebrow">LET'S GIVE IT A SHAPE</p>
+          <h2>Your idea.<br />Our next<br /><em>conversation.</em></h2>
+          <p>
+            Explore a transparent, fictional project estimate. Nothing is
+            submitted to a sales team.
+          </p>
+        </div>
+        <form id="estimate-form">
+          <label
+            >What shall we call it?<input
+              name="name"
+              required
+              maxlength="80"
+              placeholder="Your project name" /></label
+          ><label
+            >The kind of thing<select name="kind">
+              <option>Website</option>
+              <option>Web application</option>
+              <option>Mobile experience</option>
+            </select></label
+          ><label
+            >Approximate screens<select name="pages">
+              <option value="5">Up to 5</option>
+              <option value="10">Around 10</option>
+              <option value="20">Around 20</option>
+            </select></label
+          ><label class="check"
+            ><input type="checkbox" name="care" checked /> Include a fictional
+            support package</label
+          ><button type="submit">
+            Calculate &amp; save estimate <span>↗</span>
+          </button>
+          <div id="estimates"></div>
+        </form>
+      </section>
+    </main>
+    <div id="notice" role="status" aria-live="polite"></div>
+    <footer class="site-footer">
+      <span>Designed &amp; rebuilt by Josiah Adeyemo.</span
+      ><span>Independent concept / 2026</span>
+    </footer>
+  </body>
+</html>

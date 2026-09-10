@@ -1,0 +1,14 @@
+{
+  "name": "billioncodes-studio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.16.0"
+  },
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test *.test.mjs",
+    "check": "node --check server.mjs && node --check domain.mjs && node --check public/app.js"
+  }
+}
